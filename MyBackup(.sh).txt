@@ -1,0 +1,25 @@
+#!/bin/bash
+#
+# CIS-045 Brenda Wang
+#
+# This script uses functions from $HOME/Scripts/myfunctions
+# It creates an archived tar backup of the $HOME directory in a hidden folder
+# The file name includes the backup date
+# With option to compress the backup tar file with gzip
+#
+. $HOME/BackupScript/myfunctions
+
+echo "Welcome to version 2.0 of my backup script"
+echo "This program backs up to the Cloud"
+echo ""
+echo "......doing cloud stuff"
+echo ""
+echo -n "would you like to back up your local directories [yes/no]: "
+    read ans
+     if [ $ans = 'yes' ]
+         then
+	    menu
+     else
+     echo "Thanks for using my script"
+     fi
+ 

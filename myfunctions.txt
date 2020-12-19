@@ -1,0 +1,89 @@
+#This is my functions file
+#
+# CIS-045 Brenda Wang
+#
+# Using a Here document in this script for the menu.
+menu() 
+{
+cat <<END
+            MENU
+  -------------------------------
+          1. Backup
+          2. Compress
+          3. Compress and backup
+          4. Quit menu
+  -------------------------------
+END
+read_input
+}
+
+read_input()
+{
+ while true
+  do
+   echo -n "Please select a number to continue: "
+      read choice
+      case $choice in
+	1|1.|backup|Backup)
+		backup_func
+		;;
+	2|2.|Compress|compress)
+		compress_func
+		;;
+	3|3.|'Compress and backup')
+		compress_and_backup_func
+		;;
+	4|4.|Quit|quit|"Quit menu")
+		echo "Exiting program."
+		exit 5 
+		;;
+	*)
+		echo "Sorry, not a valid option."
+		echo "Please try again." 
+		;;
+      esac
+  done	
+}
+
+backup_func() {
+
+  echo "I am doing a backup"
+  mkdir -p $HOME/.secret/.backup  
+  BACKUP_DIR="$HOME/.secret/.backup"
+  chmod 700 $BACKUP_DIR  
+  tar -cf "$BACKUP_DIR/backup_`date +%F`".tar $HOME 2>/dev/null
+
+}
+
+compress_func() {
+  echo "I am compressing"
+  gzip "$HOME/.secret/.backup/backup_`date +%F`".tar 2>/dev/null || echo "There is no backup file to compress"
+
+}
+
+compress_and_backup_func() {
+   echo "Compress and backup..." 
+   backup_func  
+   compress_func
+}
+
+
+#Write a program to read input from a user
+#   1. Display a menu to ask the user for their name
+#   2. Use a function call to call the 'menu' function from a file called 'myfunctions'
+#        --ask ...what directories do you want to back up?
+#              ...Do you want to comprees your data?
+#   3. After you get the users name, ask them if they want to backup their home directory"
+#   4. $HOME/.secret/.backup   --> mkdir -p $HOME/.secret/.backup
+#      BACKUP_DIR="$HOME/.secret/.backup"
+#      Change permissions of BACKUP_DIR to 700   # chmod 700 $BACKUP_DIR
+#
+#   5. Your script will copy regular files from $HOME/homework BACKUP_DIR 
+#   6. Ask your users if they want to compress their files...Check to see that it's a 
+#      file. If it's a file, then compress before you do your backup. Or,....think of
+#      another way to save space.
+#
+# My script begins below
+
+#  echo "Calling menu"
+#    menu
