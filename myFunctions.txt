@@ -1,0 +1,67 @@
+#!/bin/bash
+#
+# Lab Final 12-18-20 
+#
+# myFunctions - this calculator program can add, multiply, divide, and subtract.
+#
+
+calc_menu() {
+echo "What do you want to do?"
+
+  select choice in add subtract multiply divide
+   do 
+      case $choice in
+        add)
+                add_func  ;;
+        subtract)
+                subtract_func;;
+        multiply)
+                multiply_func ;;
+        divide)
+                divide_func ;;
+        *)
+                echo "Invalid choice" ;;
+       esac
+       break
+   done 
+}
+
+check_args() {
+
+#check that only 2 digits were entered
+
+if [ $NUM1 -gt $NUM2 ] || [ $NUM1 -lt $NUM2 ] || [ $NUM1 -eq $NUM2 ]
+  then 
+    #check for possible zero division
+    if [ $NUM2 -eq 0 ]
+    then 
+      check="Zero"
+    else
+      check="True"  
+    fi
+else  
+   echo "Numeric values only"
+fi
+
+}
+
+add_func() {
+sum=`expr $NUM1 + $NUM2`
+echo "$NUM1 + $NUM2 is $sum"
+}
+
+subtract_func() {
+difference=`expr $NUM1 - $NUM2`
+echo "$NUM1 - $NUM2 is $difference"
+}
+
+multiply_func() {
+product=`expr $NUM1 * $NUM2`
+echo "$NUM1 * $NUM2 is $product"
+}
+
+divide_func() {
+quotient=`expr $NUM1 / $NUM2`
+echo "$NUM1 / $NUM2 is $quotient"
+}
+

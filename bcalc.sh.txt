@@ -1,0 +1,36 @@
+#!/bin/bash
+#
+# Lab Final 12-18-20 
+#
+# bcalc - this calculator program can add, multiply, divide, and subtract.
+#
+
+. ~/final-exam/myFunctions
+
+echo "This is a calculator."
+
+while ((1)) 
+do 
+
+   read -p "Enter two numbers ('quit' to exit program): " NUM1 NUM2 
+   
+   if [ $NUM1 = quit ]
+   then 
+      echo "Goodbye"
+      exit   
+   fi
+   
+   check_args
+
+   if [ $check = True ]
+   then  
+      echo "You entered $NUM1 and $NUM2"
+      calc_menu
+ 
+   elif [ $check = Zero ]
+   then
+      echo "Cannot divide by zero" 
+   fi
+
+
+done
