@@ -1,0 +1,178 @@
+Brenda Wang
+11/12/2020
+Assignment-due-11-13-2020
+
+[cs45aa08@mc-redhat01 lab-11]$ cat checkFile
+#!/bin/bash
+# ......
+#
+# This script will check the permissions of any directory
+# We would want to check to see that the directory exists first
+#
+echo -n "Please select file type you want to check: "
+read filetype 
+
+if [ -d $filetype ]
+ then echo "$filetype is a directory"
+   echo -n "Do you want to see the permissions of $filetype? "
+   read answer   
+     if [ $answer = "yes" ]
+        then
+          echo "Doing listing of : $filetype"
+          ls -ld $filetype
+      fi
+elif [ -f $filetype ] && [ ! -L $filetype ]
+then
+     echo "$filetype is a file"
+     echo -n "Do you want to see the permissions of: $filetype? "
+     read answer
+      if [ $answer = "yes" ]
+         then
+           echo "Doing listing of: $filetype"
+	   ls -lh $filetype
+      fi
+
+elif [ -L $filetype ]
+then
+    echo "$filetype is a Symbolic link"
+    echo "Getting the original file for $filetype!"
+    original_file=$(readlink -f $filetype)
+    echo "Original file for: $filetype is : $original_file"    
+
+ else
+ 
+   echo "$filetype is not a file or directory!"
+fi
+
+
+
+
+
+[cs45aa08@mc-redhat01 lab-11]$ cat myargs
+#!/bin/bash
+# Script name: myargs
+#
+# Date: Nov. 12, 2020
+# Name: Brenda Wang
+#
+# Script to test command line arguments
+
+# $# stores the number of command-line arguments
+# check if there are any arguments passed to the script
+# if none, execute the if block
+# basename command returns just the script’s name without the path
+# print syntax to pass arguments: filename followed by the arguments
+# redirect any output to /dev/null
+# exit the script
+if [ $# == 0 ] ; then
+  echo "Usage: $(basename $0) arg1 arg2 ... argn" \
+  1>&2
+  exit 1
+fi
+
+# if there $# has a value aka arguments are passed to the script,
+# continue with execution of the rest of the script:
+
+# print the name of the script
+echo "The name of this script is $0."
+# $* Stores all the arguments that were entered on the command line ($1 $2 ...)
+# print the stored command line arguments
+echo "The arguments are $*"
+# print the first 
+echo "The first argument is $1"
+# print the second
+echo "The second argument is $2"
+# print the number of arguments as given by $#
+echo "The number of arguments is $#"
+
+# store all the current command line arguments into variable previous_args
+previous_args=$*
+
+# set three new command line arguments; old ones are wiped out
+# print the new variables
+# print the quantity of new variables
+# print the original variables before new ones were set
+set niel khail nobo
+echo "All the positional parameters are $*"
+echo "The number of positional parameters is $#"
+echo $previous_args
+
+# set -- without any arguments, clears the arguments
+# print $* to show that there are no arguments currently set
+# set the command line arguments with the original ones
+# print them 
+set --
+echo "Current args after -- are: $*"
+set $previous_args
+echo $*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[cs45aa08@mc-redhat01 lab-11]$ cat tellage
+#!/bin/bash
+# Script name: tellage
+#
+# ask the user to input their age; output PROMPT and leave cursor on same line
+read -p "How old are you? "
+#store the user input into REPLY variable
+age=$REPLY
+
+# test user's age: if negative or 120+, tell them they aren't a real person
+# exit the script
+if (( age < 0 || age > 120 ))
+then
+  echo "You are not a real person!"
+  exit 1
+fi
+
+# test user's age: if greater than or equal to 0 and less than 13
+# tell them to look forward to their futures
+if (( age >= 0 && age < 13 ))
+then
+  echo "You still have some of th ebest years of your life ahead."
+
+# if not a child, test their age again; if a teenager:
+# tell them it's their time to learn
+elif (( age > 12 && age < 20 ))
+then
+  echo "Important years to learn"
+
+# if not a teenager, test their age again; if in twenties:
+# tell them to settle down
+elif (( age >= 20 && age < 30 ))
+then
+  echo "Time to find a potential mate!!"
+
+# if not in twenties, test their age again; if in thirties:
+# tell them you assume they are changing diapers
+elif (( age >= 30 && age < 40 ))
+then
+  echo "You are probably changing diapers"
+
+# if the age doesn't fall into any category:; 
+# apolgize
+else
+  echo "Sorry I asked"
+
+# end if block
+fi

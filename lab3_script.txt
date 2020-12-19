@@ -1,0 +1,170 @@
+CIS-045 Brenda Wang
+
+
+[cs45aa08@mc-redhat01 homework]$ cat week3/lab-3/lab-3-0922
+Script started on Tue 22 Sep 2020 06:57:24 PM EDT
+[cs45aa08@mc-redhat01 lab-3]$ umask
+0002
+[cs45aa08@mc-redhat01 lab-3]$ cd ../lec-3
+[cs45aa08@mc-redhat01 lec-3]$ ls -ld dirx
+ls: cannot access dirx: No such file or directory
+[cs45aa08@mc-redhat01 lec-3]$ mkdir dirx
+[cs45aa08@mc-redhat01 lec-3]$ ls -ld dirx
+drwxrwxr-x. 2 cs45aa08 cs45aa08 6 Sep 22 18:57 dirx
+[cs45aa08@mc-redhat01 lec-3]$ touch xfile
+[cs45aa08@mc-redhat01 lec-3]$ ls -l xfile
+-rw-rw-r--. 1 cs45aa08 cs45aa08 0 Sep 22 18:58 xfile
+[cs45aa08@mc-redhat01 lec-3]$ umask 033
+[cs45aa08@mc-redhat01 lec-3]$ touch zfile
+[cs45aa08@mc-redhat01 lec-3]$ ls -l zfile
+-rw-r--r--. 1 cs45aa08 cs45aa08 0 Sep 22 18:58 zfile
+[cs45aa08@mc-redhat01 lec-3]$ mkdir zdir
+[cs45aa08@mc-redhat01 lec-3]$ ls -ld zdir
+drwxr--r--. 2 cs45aa08 cs45aa08 6 Sep 22 18:59 zdir
+[cs45aa08@mc-redhat01 lec-3]$ groups mr-tester
+mr-tester : mr-tester
+[cs45aa08@mc-redhat01 lec-3]$ grep mr-tester /etc/group
+mr-tester:x:1047:
+[cs45aa08@mc-redhat01 lec-3]$ id -a mr-tester
+uid=1045(mr-tester) gid=1047(mr-tester) groups=1047(mr-tester)
+[cs45aa08@mc-redhat01 lec-3]$ newgrp -cs45
+Usage: newgrp [-] [group]
+[cs45aa08@mc-redhat01 lec-3]$ id
+uid=1008(cs45aa08) gid=1008(cs45aa08) groups=1008(cs45aa08) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+[cs45aa08@mc-redhat01 lec-3]$ ps
+  PID TTY          TIME CMD
+30870 pts/2    00:00:00 bash
+31217 pts/2    00:00:00 ps
+[cs45aa08@mc-redhat01 lec-3]$ newgrp cs45
+Password: 
+newgrp: failed to crypt password with previous salt: Invalid argument
+[cs45aa08@mc-redhat01 lec-3]$ touch gxfile
+[cs45aa08@mc-redhat01 lec-3]$ ls -l gxfile
+-rw-r--r--. 1 cs45aa08 cs45aa08 0 Sep 22 19:01 gxfile
+[cs45aa08@mc-redhat01 lec-3]$ chgrp wheel gxfile
+chgrp: changing group of ‘gxfile’: Operation not permitted
+[cs45aa08@mc-redhat01 lec-3]$ ls -l gxfile
+-rw-r--r--. 1 cs45aa08 cs45aa08 0 Sep 22 19:01 gxfile
+[cs45aa08@mc-redhat01 lec-3]$ touch mr-tfile
+[cs45aa08@mc-redhat01 lec-3]$ ls -l mr-tfile
+-rw-r--r--. 1 cs45aa08 cs45aa08 0 Sep 22 19:10 mr-tfile
+[cs45aa08@mc-redhat01 lec-3]$ chgrp cs45 mr-tfile
+chgrp: changing group of ‘mr-tfile’: Operation not permitted
+[cs45aa08@mc-redhat01 lec-3]$ test -f mr-tfile
+[cs45aa08@mc-redhat01 lec-3]$ echo $
+$
+[cs45aa08@mc-redhat01 lec-3]$ echo$?
+bash: echo0: command not found...
+Similar command is: 'echo'
+[cs45aa08@mc-redhat01 lec-3]$ echo $?
+127
+[cs45aa08@mc-redhat01 lec-3]$ test -d mr-tfile
+[cs45aa08@mc-redhat01 lec-3]$ echo $?
+1
+[cs45aa08@mc-redhat01 lec-3]$ mkdir mr-dir
+[cs45aa08@mc-redhat01 lec-3]$ ls -ld mr-dir
+drwxr--r--. 2 cs45aa08 cs45aa08 6 Sep 22 19:31 mr-dir
+[cs45aa08@mc-redhat01 lec-3]$ test -d mr-dir
+[cs45aa08@mc-redhat01 lec-3]$ echo $0
+bash
+[cs45aa08@mc-redhat01 lec-3]$ echo $?
+0
+[cs45aa08@mc-redhat01 lec-3]$ test 4 -lt 5
+[cs45aa08@mc-redhat01 lec-3]$ echo $?
+0
+[cs45aa08@mc-redhat01 lec-3]$ test 4 -lt 5 && "I got this!"
+bash: !": event not found
+[cs45aa08@mc-redhat01 lec-3]$ test 4 -lt 5 && echo "I got this!"
+bash: !": event not found
+[cs45aa08@mc-redhat01 lec-3]$ test 2 -ne 3 && echo "Rock on"
+Rock on
+[cs45aa08@mc-redhat01 lec-3]$ 4 -lt 5 && echo "I got this"
+bash: 4: command not found...
+[cs45aa08@mc-redhat01 lec-3]$ test 4 -lt 5 && echo "i got this"
+i got this
+[cs45aa08@mc-redhat01 lec-3]$ test -d mr-dir && echo "mr-dir is a directory"
+mr-dir is a directory
+[cs45aa08@mc-redhat01 lec-3]$ mkdir permtest
+[cs45aa08@mc-redhat01 lec-3]$ cd permtest
+[cs45aa08@mc-redhat01 permtest]$ touch feedback1 feedback2 feedback3
+[cs45aa08@mc-redhat01 permtest]$ ls -lh
+total 0
+-rw-r--r--. 1 cs45aa08 cs45aa08 0 Sep 22 19:44 feedback1
+-rw-r--r--. 1 cs45aa08 cs45aa08 0 Sep 22 19:44 feedback2
+-rw-r--r--. 1 cs45aa08 cs45aa08 0 Sep 22 19:44 feedback3
+[cs45aa08@mc-redhat01 permtest]$ vim feedback1
+[cs45aa08@mc-redhat01 permtest]$ chmod +x feedback1
+[cs45aa08@mc-redhat01 permtest]$ ls -lh
+total 4.0K
+-rwxr--r--. 1 cs45aa08 cs45aa08 43 Sep 22 19:45 feedback1
+-rw-r--r--. 1 cs45aa08 cs45aa08  0 Sep 22 19:44 feedback2
+-rw-r--r--. 1 cs45aa08 cs45aa08  0 Sep 22 19:44 feedback3
+[cs45aa08@mc-redhat01 permtest]$ chmod u=rw g=r o=
+chmod: cannot access ‘g=r’: No such file or directory
+chmod: cannot access ‘o=’: No such file or directory
+[cs45aa08@mc-redhat01 permtest]$ chmod u=rw- g=r-- o=--- feedback2
+chmod: cannot access ‘g=r--’: No such file or directory
+chmod: cannot access ‘o=---’: No such file or directory
+[cs45aa08@mc-redhat01 permtest]$ chmod u=rw-,g=r--,o=--- feedback2
+[cs45aa08@mc-redhat01 permtest]$ ls -lh
+total 4.0K
+-rwxr--r--. 1 cs45aa08 cs45aa08 43 Sep 22 19:45 feedback1
+-rw-r-----. 1 cs45aa08 cs45aa08  0 Sep 22 19:44 feedback2
+-rw-r--r--. 1 cs45aa08 cs45aa08  0 Sep 22 19:44 feedback3
+[cs45aa08@mc-redhat01 permtest]$ chmod 751 feedback3
+[cs45aa08@mc-redhat01 permtest]$ ls -lh
+total 4.0K
+-rwxr--r--. 1 cs45aa08 cs45aa08 43 Sep 22 19:45 feedback1
+-rw-r-----. 1 cs45aa08 cs45aa08  0 Sep 22 19:44 feedback2
+-rwxr-x--x. 1 cs45aa08 cs45aa08  0 Sep 22 19:44 feedback3
+[cs45aa08@mc-redhat01 permtest]$ mkdir dir-tester
+[cs45aa08@mc-redhat01 permtest]$ cd dir-tester
+[cs45aa08@mc-redhat01 dir-tester]$ mkdir dir-test2
+[cs45aa08@mc-redhat01 dir-tester]$ touch tester-file1 tester-file2 tester-file3 tester-file4
+[cs45aa08@mc-redhat01 dir-tester]$ rm tester-file1 tester-file2 tester-file3 tester-file4
+[cs45aa08@mc-redhat01 dir-tester]$ cd dir-test2
+[cs45aa08@mc-redhat01 dir-test2]$ touch tester-file1 tester-file2 tester-file3 tester-file4
+[cs45aa08@mc-redhat01 dir-test2]$ ls dir-tester/dir-test2/*
+ls: cannot access dir-tester/dir-test2/*: No such file or directory
+[cs45aa08@mc-redhat01 dir-test2]$ ls
+tester-file1  tester-file2  tester-file3  tester-file4
+[cs45aa08@mc-redhat01 dir-test2]$ cd ../..
+[cs45aa08@mc-redhat01 permtest]$ ls dir-tester/dir-test2/*
+dir-tester/dir-test2/tester-file1  dir-tester/dir-test2/tester-file3
+dir-tester/dir-test2/tester-file2  dir-tester/dir-test2/tester-file4
+[cs45aa08@mc-redhat01 permtest]$ ls -lR dir-tester
+dir-tester:
+total 0
+drwxr--r--. 2 cs45aa08 cs45aa08 86 Sep 22 19:54 dir-test2
+
+dir-tester/dir-test2:
+total 0
+-rw-r--r--. 1 cs45aa08 cs45aa08 0 Sep 22 19:54 tester-file1
+-rw-r--r--. 1 cs45aa08 cs45aa08 0 Sep 22 19:54 tester-file2
+-rw-r--r--. 1 cs45aa08 cs45aa08 0 Sep 22 19:54 tester-file3
+-rw-r--r--. 1 cs45aa08 cs45aa08 0 Sep 22 19:54 tester-file4
+[cs45aa08@mc-redhat01 permtest]$ chmod -R 600 dir-tester
+chmod: cannot access ‘dir-tester/dir-test2’: Permission denied
+[cs45aa08@mc-redhat01 permtest]$ ls -lR
+.:
+total 4
+drw-------. 3 cs45aa08 cs45aa08 23 Sep 22 19:54 dir-tester
+-rwxr--r--. 1 cs45aa08 cs45aa08 43 Sep 22 19:45 feedback1
+-rw-r-----. 1 cs45aa08 cs45aa08  0 Sep 22 19:44 feedback2
+-rwxr-x--x. 1 cs45aa08 cs45aa08  0 Sep 22 19:44 feedback3
+
+./dir-tester:
+ls: cannot access ./dir-tester/dir-test2: Permission denied
+total 0
+d????????? ? ? ? ?            ? dir-test2
+ls: cannot open directory ./dir-tester/dir-test2: Permission denied
+[cs45aa08@mc-redhat01 permtest]$ ls
+dir-tester  feedback1  feedback2  feedback3
+[cs45aa08@mc-redhat01 permtest]$ cd dir-tester ls
+bash: cd: dir-tester: Permission denied
+[cs45aa08@mc-redhat01 permtest]$ cd dir-tester
+bash: cd: dir-tester: Permission denied
+[cs45aa08@mc-redhat01 permtest]$ exit
+exit
+
+Script done on Tue 22 Sep 2020 08:00:36 PM EDT

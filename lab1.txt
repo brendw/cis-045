@@ -1,0 +1,89 @@
+LAB1
+CIS-045 
+Brenda Wang
+
+1.	$ ssh cs45aa08@209.129.148.10
+
+2. 	uid=1008(cs45aa08) gid=1008(cs45aa08) groups=1008(cs45aa08) 	context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+
+3. 	id -r (- -real) results in “id: cannot print only names or real IDs in default format” - who did you log in as; prints real ID instead of numbers
+	id -u results in “1008” - shows the effective user number
+
+4. 	no one else is logged in except for me
+	logged in at 8:32 PM from 73.63.216.8
+
+5. 	tty shows that I’m working in terminal /dev/pts/0
+
+6. 	There’s no other user currently on the machine. 
+7. 	$ man w
+8. 	$ info man
+9. 	the name of the system I am on is mc-redhat01
+10. 	hostname -i shows IP addresses associated with the hostname
+	hostname -f shows the long host name
+
+11. man -k printf searches any pages with keyword string ‘printf’ in description
+	when you find that its section (3p)
+	then search man -s3p printf to get to Section 3p for the printf command; shows a lot of 	information for different uses of printing formatted output; a part of POSIX Programmer’s	Manual
+	man printf shows a shorter page; lists the different format controls without further explanation
+
+12. 	curl is a tool to transfer data from or to a server; curl is used to transfer a URL
+
+13. 	wget is a utility used for non-interactive download of files from the web 
+14.	bash shell
+15.	bin/bash
+16.	“/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/cs45aa08/.local/bin:/home/cs45aa08/bin” 
+
+17.	“bash: pizza: command not found…”
+18.	[mr-tester@mc-redhat01 ~]
+	$ pwd: /home/mr-tester
+	$ whoami: mr-tester
+	$ who am i: cs45aa08 pts/0        2020-09-06 22:44 (73.63.216.8)
+	The difference is that whoami shows what user you are logged in as; who am i shows the user info for who you logged into the system as
+	after logging out, $whoami: cs45aa08
+
+19. 	[mr-tester@mc-redhat01 cs45aa08]
+	$ pwd: /home/cs45aa08
+	$ whoami: mr-tester
+	$ who am i: “cs45aa08 pts/0        2020-09-06 22:44 (73.63.216.8)”
+	The difference between su-mr-tester and su mr-tester is: 
+
+20.  $ last
+21. 	$ pinky -l hcampbell : shows Login name, In real life, Directory, Shell
+
+22. 	$ cal
+23.	$ date
+	$ date +%F : full date %Y-%m-%d
+	$ date +%m : month
+	$ date +%m-%d :month-date
+	$ date +%m-%d-%Y 
+
+24. 	$ pwd : /home/cs45aa08
+25.	cd command to change directory
+
+26. 	$ cd without argument takes you to the root directory; cd with ~ takes you to your user directory (/home/cs45aa08)
+	
+	$ cd - : the dash indicates change directory to the old working directory or the one you were in previously 
+	originally in ~, $ cd .. takes you to /home
+	(double dot represents parent directory)
+	originally in ~, $ ls -a . : lists hidden directories in user ~ 
+	(single dot represents current directory)
+
+27. 	$ free displays total amount of free and used physical and swap memory in the system
+	$ free -h shows output fields automatically scaled to shortest three digit unit (human)
+	
+
+28. 	$ type ls : “ ls is aliased to `ls --color=auto’ ”
+	$ type pwd : “ pwd is a shell builtin “ 
+	$ type date : “ date is hashed (/usr/bin/date) “
+
+29. 	df - report file system disk space usage
+	$ df -h : (human readable) 
+	$ df -hT: (human readable & print file system type) 
+
+30.	du - estimate file space usage
+	$ du
+	$ du -sh . (summarize = display only a total for each argument & human - in current directory) 20K
+	$ du -sh *
+	$ du -a
+	$ du -sh /home
+	$ du -shS /home (-S does not include size of subdirectories) 
